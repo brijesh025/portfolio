@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- React atom (simplified) -->
+  <circle cx="12" cy="12" r="2.139" fill="#61DAFB"/>
+  <path d="M12 8.4c-4.418 0-8.4.896-8.4 2.4 0 1.504 3.982 2.4 8.4 2.4 4.418 0 8.4-.896 8.4-2.4 0-1.504-3.982-2.4-8.4-2.4z" fill="none" stroke="#61DAFB" stroke-width="1"/>
+  <path d="M9.6 10.8c-2.209-3.825-4.841-6-6-4.8-1.159 1.2.373 5.223 3.6 9 3.227 3.777 6.741 5.923 7.8 4.8 1.059-1.123-1.173-3.6-3-6" fill="none" stroke="#61DAFB" stroke-width="1"/>
+  <path d="M9.6 13.2c-2.209 3.825-4.841 6-6 4.8-1.159-1.2.373-5.223 3.6-9 3.227-3.777 6.741-5.923 7.8-4.8 1.059 1.123-1.173 3.6-3 6" fill="none" stroke="#61DAFB" stroke-width="1"/>
+  
+  <!-- Expo 'X' element -->
+  <path d="M17.25,10.5 L20.25,7.5" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M17.25,7.5 L20.25,10.5" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+  
+  <!-- Mobile outline hint -->
+  <rect x="15.5" y="6" width="6" height="6" rx="1" ry="1" fill="none" stroke="#FFFFFF" stroke-width="0.7"/>
+</svg> 

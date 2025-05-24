@@ -35,7 +35,7 @@ const skillCategories = [
       },
       {
         name: "Tailwind CSS",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
+        icon: "/icons/tailwind.svg",
       },
       {
         name: "Redux",
@@ -44,10 +44,6 @@ const skillCategories = [
       {
         name: "Material UI",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
-      },
-      {
-        name: "Chakra UI",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chakraui/chakraui-original.svg",
       },
     ],
   },
@@ -60,7 +56,7 @@ const skillCategories = [
       },
       {
         name: "Express.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        icon: "/icons/express.svg",
       },
       {
         name: "MongoDB",
@@ -93,7 +89,7 @@ const skillCategories = [
       },
       {
         name: "GitHub",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original-wordmark.svg",
+        icon: "/icons/github.svg",
       },
       {
         name: "Docker",
@@ -101,7 +97,7 @@ const skillCategories = [
       },
       {
         name: "AWS",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+        icon: "/icons/aws.svg",
       },
       {
         name: "Vercel",
@@ -144,6 +140,26 @@ const skillCategories = [
   },
 ];
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 300, damping: 24 },
+  },
+};
+
 const SkillsPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -165,44 +181,70 @@ const SkillsPage = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10 bg-[#0a0a0a]">
-        <div className="absolute top-0 -left-40 w-80 h-80 bg-gradient-to-br from-[#ff3333]/30 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-40 -right-20 w-96 h-96 bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 w-full h-96 bg-gradient-to-t from-[#ff3333]/10 to-transparent rounded-full blur-3xl opacity-70" />
+      {/* Enhanced background effects */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 -left-40 w-80 h-80 bg-gradient-to-br from-[#ff3333]/10 to-transparent rounded-full blur-3xl opacity-70" />
+        <div className="absolute bottom-40 -right-20 w-80 h-80 bg-gradient-to-tl from-[#ff3333]/5 to-transparent rounded-full blur-3xl opacity-70" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px bg-gradient-to-r from-transparent via-[#ff3333]/20 to-transparent" />
       </div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 py-12 md:py-20">
-        {/* Header section with glowing effect */}
+        {/* Header section with animations */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="relative mb-16"
         >
-          <div className="absolute -top-10 left-0 w-40 h-40 bg-[#ff3333]/20 rounded-full blur-3xl" />
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "60px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="h-1 bg-[#ff3333] mb-6"
+          />
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white relative z-10">
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             My <span className="text-[#ff3333]">Skills</span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-lg text-gray-300 max-w-2xl mb-12 relative z-10">
+          <motion.p
+            className="text-lg opacity-80 max-w-2xl mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             With a foundation in competitive programming and web development,
             I've developed a diverse skill set that allows me to build robust,
             scalable applications from the ground up.
-          </p>
+          </motion.p>
         </motion.div>
 
-        {/* Category filtering */}
-        <div className="flex flex-wrap gap-4 mb-10">
+        {/* Category filtering with animated buttons */}
+        <motion.div
+          className="flex flex-wrap gap-4 mb-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           <motion.button
+            variants={itemVariants}
             onClick={() => setActiveCategory("All")}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               activeCategory === "All"
                 ? "bg-[#ff3333] text-white shadow-lg shadow-[#ff3333]/20"
-                : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                : "bg-white/5 backdrop-blur-md border border-white/10 text-white hover:border-[#ff3333]/30 hover:bg-[#ff3333]/10"
             }`}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ y: -5, x: 0 }}
             whileTap={{ scale: 0.95 }}
           >
             All
@@ -211,19 +253,20 @@ const SkillsPage = () => {
           {skillCategories.map((category) => (
             <motion.button
               key={category.name}
+              variants={itemVariants}
               onClick={() => setActiveCategory(category.name)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeCategory === category.name
                   ? "bg-[#ff3333] text-white shadow-lg shadow-[#ff3333]/20"
-                  : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                  : "bg-white/5 backdrop-blur-md border border-white/10 text-white hover:border-[#ff3333]/30 hover:bg-[#ff3333]/10"
               }`}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ y: -5, x: 0 }}
               whileTap={{ scale: 0.95 }}
             >
               {category.name}
             </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Skills grid with animations */}
         <AnimatePresence mode="wait">
@@ -247,215 +290,73 @@ const SkillsPage = () => {
                   stiffness: 100,
                 }}
                 whileHover={{
-                  scale: 1.1,
-                  y: -5,
+                  y: -8,
+                  boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                  borderColor: "rgba(255, 51, 51, 0.3)",
                   transition: { duration: 0.2 },
                 }}
-                className="relative group"
+                className="flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-lg relative overflow-hidden group"
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 relative flex items-center justify-center rounded-2xl overflow-hidden bg-gray-800 group-hover:bg-black mb-3 transition-all duration-300 border border-gray-700 group-hover:border-[#ff3333]/50">
-                    {/* Glow effect on hover */}
-                    <div
-                      className={`absolute inset-0 bg-[#ff3333]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm`}
-                    />
+                <div className="w-12 h-12 md:w-16 md:h-16 mb-3 transition-all duration-300 relative">
+                  {/* Light orb effect */}
+                  <div className="absolute -right-2 -top-2 w-6 h-6 bg-gradient-to-bl from-[#ff3333]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    {/* Icon with glow effect */}
-                    <div className="relative z-10 w-3/5 h-3/5">
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        fill
-                        className="object-contain transition-all duration-300"
-                        style={{
-                          filter:
-                            skill.name === "GitHub"
-                              ? "invert(1) brightness(1.5)"
-                              : "brightness(1.2)",
-                        }}
-                      />
-                    </div>
-
-                    {/* Animated corner accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ff3333]/0 group-hover:border-[#ff3333] transition-all duration-300" />
-                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#ff3333]/0 group-hover:border-[#ff3333] transition-all duration-300" />
-                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#ff3333]/0 group-hover:border-[#ff3333] transition-all duration-300" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#ff3333]/0 group-hover:border-[#ff3333] transition-all duration-300" />
-                  </div>
-
-                  <span className="text-sm font-medium text-white/80 group-hover:text-white text-center transition-colors">
-                    {skill.name}
-                  </span>
+                  <Image
+                    src={skill.icon}
+                    alt={skill.name}
+                    width={64}
+                    height={64}
+                    className="object-contain w-full h-full filter transition-all duration-300"
+                  />
                 </div>
+                <p className="text-sm text-center">{skill.name}</p>
+
+                {/* Light reflection effect */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r rom-transparent via-white/20 to-transparent"
+                  whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
               </motion.div>
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* Detailed skills sections */}
-        <div className="space-y-20">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.section
-              key={category.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.2 }}
-              className="mb-12"
-            >
-              <h2 className="text-2xl md:text-3xl font-bold mb-10 relative text-white">
-                <span className="relative z-10">{category.name}</span>
-                <span className="absolute bottom-0 left-0 h-3 bg-[#ff3333]/20 w-24 -z-10"></span>
-              </h2>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={`${category.name}-${skill.name}`}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 0 25px rgba(255, 51, 51, 0.15)",
-                    }}
-                    className="bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/50 hover:border-[#ff3333]/30 transition-all duration-300"
-                  >
-                    <div className="p-6 flex flex-col items-center relative">
-                      {/* Radial gradient background on hover */}
-                      <div className="absolute inset-0 bg-gradient-radial from-[#ff3333]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-
-                      <div className="w-16 h-16 md:w-20 md:h-20 mb-4 relative flex items-center justify-center bg-black/30 rounded-xl p-3">
-                        <Image
-                          src={skill.icon}
-                          alt={skill.name}
-                          fill
-                          className="object-contain p-2"
-                          style={{
-                            filter:
-                              skill.name === "GitHub"
-                                ? "invert(1) brightness(1.5)"
-                                : "brightness(1.2)",
-                          }}
-                        />
-                      </div>
-                      <h3 className="font-medium text-center text-white relative z-10">
-                        {skill.name}
-                      </h3>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          ))}
-        </div>
-
-        {/* Learning journey section with improved design */}
+        {/* Future skills section */}
         <motion.section
-          className="mt-20 bg-gradient-to-br from-black to-gray-900 border border-gray-800 rounded-2xl p-10 md:p-14 relative overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-24"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
-          {/* Background glow effects */}
-          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl" />
+          <motion.h2
+            className="text-2xl md:text-3xl font-bold mb-8 relative inline-block"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Skills I'm Learning
+            <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff3333] to-transparent"></span>
+          </motion.h2>
 
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white relative">
-            My Learning <span className="text-[#ff3333]">Journey</span>
-          </h2>
-          <p className="mb-10 text-gray-300">
-            Technology is constantly evolving, and so am I. Here are some
-            technologies I'm currently exploring:
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             <motion.div
-              className="relative bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 overflow-hidden group"
+              className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg relative overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 30px rgba(255, 51, 51, 0.15)",
+                y: -5,
+                boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                borderColor: "rgba(255, 51, 51, 0.3)",
+                transition: { duration: 0.2 },
               }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              {/* Animated accent line */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#ff3333]/10 rounded-xl flex items-center justify-center text-[#ff3333]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-white">GraphQL & Apollo</h3>
-              </div>
-              <p className="text-gray-400">
-                Exploring efficient data fetching and real-time updates with
-                GraphQL and Apollo Client.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="relative bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 overflow-hidden group"
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 30px rgba(255, 51, 51, 0.15)",
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              {/* Animated accent line */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#ff3333]/10 rounded-xl flex items-center justify-center text-[#ff3333]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                    />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-white">Machine Learning</h3>
-              </div>
-              <p className="text-gray-400">
-                Learning the fundamentals of machine learning algorithms and how
-                to implement them in real-world projects.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="relative bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 overflow-hidden group"
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 30px rgba(255, 51, 51, 0.15)",
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              {/* Animated accent line */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              {/* Light beam effect */}
+              <div className="absolute -right-20 top-1/2 w-40 h-40 bg-gradient-to-bl from-[#ff3333]/20 to-transparent rounded-full blur-3xl transform -translate-y-1/2" />
 
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-[#ff3333]/10 rounded-xl flex items-center justify-center text-[#ff3333]">
@@ -478,65 +379,69 @@ const SkillsPage = () => {
                   Blockchain Development
                 </h3>
               </div>
-              <p className="text-gray-400">
+              <p className="opacity-80">
                 Diving into blockchain technology, smart contracts, and building
                 decentralized applications.
               </p>
+
+              {/* Light reflection effect */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
+
+            <motion.div
+              className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg relative overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{
+                y: -5,
+                boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                borderColor: "rgba(255, 51, 51, 0.3)",
+                transition: { duration: 0.2 },
+              }}
+            >
+              {/* Light beam effect */}
+              <div className="absolute -left-20 top-1/2 w-40 h-40 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-3xl transform -translate-y-1/2" />
+
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-[#ff3333]/10 rounded-xl flex items-center justify-center text-[#ff3333]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-white">Machine Learning</h3>
+              </div>
+              <p className="opacity-80">
+                Learning the fundamentals of machine learning to integrate AI
+                capabilities into web applications.
+              </p>
+
+              {/* Light reflection effect */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
             </motion.div>
           </div>
         </motion.section>
-
-        {/* Contact CTA with improved animation and design */}
-        <motion.div
-          className="mt-16 p-10 rounded-2xl bg-gradient-to-br from-black to-gray-900 border border-gray-800 text-center relative overflow-hidden"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          whileHover={{ boxShadow: "0 0 40px rgba(255, 51, 51, 0.2)" }}
-        >
-          {/* Background lighting effects */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#ff3333]/50 to-transparent" />
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#ff3333]/30 to-transparent" />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-          >
-            <h3 className="text-2xl font-bold mb-4 text-white">
-              Looking to collaborate?
-            </h3>
-            <p className="mb-8 max-w-2xl mx-auto text-gray-300">
-              I'm always excited to work on challenging projects and learn new
-              technologies. If you're looking for a passionate developer, let's
-              talk!
-            </p>
-            <motion.a
-              href="/contact"
-              className="inline-block px-8 py-3 bg-[#ff3333] text-white rounded-full hover:bg-[#cc0000] transition-colors relative overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">Get in Touch</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#ff3333] to-[#cc0000] group-hover:opacity-100 transition-opacity z-0"></span>
-              <span className="absolute -inset-full bg-gradient-to-r from-[#ff3333] via-white/10 to-[#ff3333] z-0 animate-[shimmer_2s_infinite] opacity-0 group-hover:opacity-100"></span>
-            </motion.a>
-          </motion.div>
-        </motion.div>
       </div>
-
-      {/* Custom animated cursor effect for skill items */}
-      <style jsx global>{`
-        @keyframes shimmer {
-          0%,
-          100% {
-            transform: translateX(-100%);
-          }
-          50% {
-            transform: translateX(100%);
-          }
-        }
-      `}</style>
     </main>
   );
 };

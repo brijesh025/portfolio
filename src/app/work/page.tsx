@@ -1,5 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 300, damping: 24 },
+  },
+};
 
 export default function WorkPage() {
   const projects = [
@@ -72,27 +95,79 @@ export default function WorkPage() {
   ];
 
   return (
-    <div className="w-full px-6 md:px-12 lg:px-20 py-16 md:py-24">
+    <div className="w-full px-6 md:px-12 lg:px-20 py-16 md:py-24 relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-40 right-20 w-80 h-80 bg-gradient-to-br from-[#ff3333]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-gradient-to-tr from-[#ff3333]/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#ff3333]/20 to-transparent" />
+      </div>
+
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">My Work</h1>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="h-1 bg-[#ff3333] mb-6 mx-auto"
+          />
+
+          <motion.h1
+            className="text-4xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            My <span className="text-[#ff3333]">Work</span>
+          </motion.h1>
+
+          <motion.p
+            className="text-lg opacity-80 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             A selection of my recent projects. Each project represents a unique
             challenge and showcases different skills and technologies.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <motion.div
+          className="grid md:grid-cols-2 gap-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {projects.map((project) => (
-            <div
+            <motion.div
               key={project.id}
-              className="group bg-secondary/5 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+              variants={itemVariants}
+              className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden hover:border-[#ff3333]/30 transition-all duration-300 relative"
+              whileHover={{
+                y: -10,
+                boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                borderColor: "rgba(255, 51, 51, 0.3)",
+                transition: { duration: 0.2 },
+              }}
             >
+              {/* Light orb effect */}
+              <div className="absolute -right-20 -top-20 w-40 h-40 bg-gradient-to-bl from-[#ff3333]/10 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gray-800/50 flex items-center justify-center">
                   {/* Replace with actual project images */}
                   <svg
-                    className="w-16 h-16 text-gray-500"
+                    className="w-16 h-16 text-gray-300 group-hover:text-[#ff3333] transition-colors duration-300"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -104,30 +179,32 @@ export default function WorkPage() {
                     />
                   </svg>
                 </div>
-                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#ff3333]/80 to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="flex gap-4">
-                    <a
+                    <motion.a
                       href={project.demoUrl}
-                      className="bg-white text-primary px-4 py-2 rounded hover:bg-gray-100 transition-colors duration-300"
+                      className="bg-white text-[#ff3333] px-4 py-2 rounded-full hover:bg-gray-100 transition-all duration-300 hover:-translate-y-1 border border-white"
                       target="_blank"
                       rel="noopener noreferrer"
+                      whileHover={{ y: -5 }}
                     >
                       Live Demo
-                    </a>
-                    <a
+                    </motion.a>
+                    <motion.a
                       href={project.codeUrl}
-                      className="bg-background text-white px-4 py-2 rounded border border-white hover:bg-white/10 transition-colors duration-300"
+                      className="bg-transparent text-white px-4 py-2 rounded-full border border-white hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
                       target="_blank"
                       rel="noopener noreferrer"
+                      whileHover={{ y: -5 }}
                     >
                       View Code
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-6 relative">
                 <div className="mb-2">
-                  <span className="text-sm text-primary">
+                  <span className="text-sm text-[#ff3333]">
                     {project.category}
                   </span>
                 </div>
@@ -137,28 +214,56 @@ export default function WorkPage() {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-secondary/10 rounded-full text-sm"
+                      className="px-3 py-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm hover:border-[#ff3333]/30 transition-all duration-300"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-lg mb-8">
-            Want to see more of my work or discuss a potential project?
-          </p>
-          <Link
-            href="/contact"
-            className="px-8 py-3 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
+                {/* Light reflection effect */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <motion.p
+            className="text-lg mb-8 opacity-80"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
-            Contact Me
-          </Link>
-        </div>
+            Want to see more of my work or discuss a potential project?
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            whileHover={{ y: -5 }}
+          >
+            <Link
+              href="/contact"
+              className="inline-block px-8 py-3 rounded-full bg-[#ff3333] text-white hover:shadow-lg hover:shadow-[#ff3333]/20 transition-all duration-300"
+            >
+              Contact Me
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

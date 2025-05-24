@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 const WhyHireMe = () => {
   const [activeTab, setActiveTab] = useState("experience");
@@ -36,10 +36,11 @@ const WhyHireMe = () => {
 
   return (
     <section className="relative w-full px-6 md:px-12 lg:px-20 py-16 md:py-24 overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 -z-10 bg-secondary/5">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#ff3333]/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#ff3333]/5 to-transparent rounded-full blur-3xl" />
+      {/* Enhanced background effects matching home page */}
+      <div className="absolute -inset-0 -z-10">
+        {/* Main glowing orbs */}
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-96 h-96 bg-gradient-to-tr from-[#ff3333]/10 to-transparent rounded-full blur-3xl" />
       </div>
 
       <div className="flex flex-col lg:flex-row justify-between gap-12">
@@ -80,16 +81,16 @@ const WhyHireMe = () => {
             and problem-solving skills to every project.
           </motion.p>
 
-          {/* Tabs Navigation */}
+          {/* Glass effect tabs */}
           <div className="flex flex-col gap-2">
             {tabs.map((tab, index) => (
               <motion.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-6 text-left rounded transition-all duration-300 relative overflow-hidden ${
+                className={`py-4 px-6 text-left rounded-lg transition-all duration-300 relative overflow-hidden backdrop-blur-md ${
                   activeTab === tab.id
-                    ? "bg-[#ff3333] text-white shadow-lg shadow-[#ff3333]/20"
-                    : "bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/5"
+                    ? "bg-[#ff3333]/80 text-white shadow-lg shadow-[#ff3333]/30"
+                    : "bg-white/5 hover:bg-white/10 border border-white/10"
                 }`}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -97,17 +98,25 @@ const WhyHireMe = () => {
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 whileHover={{
                   scale: activeTab === tab.id ? 1 : 1.02,
+                  boxShadow: "0 0 20px rgba(255, 51, 51, 0.3)",
+                  borderColor: "rgba(255, 51, 51, 0.3)",
                   transition: { duration: 0.2 },
                 }}
               >
                 {activeTab === tab.id && (
                   <motion.div
-                    className="absolute inset-0 -z-10 bg-[#ff3333]"
+                    className="absolute inset-0 -z-10 bg-gradient-to-r from-[#ff3333]/80 to-[#ff5555]/80"
                     layoutId="activeTab"
                     initial={false}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
+                {/* Light reflection effect on hover */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 -z-5"
+                  whileHover={{ opacity: 1, x: 100 }}
+                  transition={{ duration: 0.5 }}
+                />
                 {tab.label}
               </motion.button>
             ))}
@@ -132,7 +141,7 @@ const WhyHireMe = () => {
             >
               <h3 className="text-2xl font-semibold mb-4 relative inline-block">
                 My experience
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ff3333]/50"></span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent"></span>
               </h3>
               <p className="opacity-80 mb-6">
                 I have hands-on experience in developing real-time collaborative
@@ -147,9 +156,14 @@ const WhyHireMe = () => {
                 viewport={{ once: true }}
               >
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">
                     1 MAY 2024 - 2 JULY 2024
@@ -162,12 +176,23 @@ const WhyHireMe = () => {
                     Developed the fundamentals of Computer Science among
                     students, teaching coding and problem-solving skills.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">2023</span>
                   <h4 className="text-xl font-semibold mb-2">
@@ -179,12 +204,23 @@ const WhyHireMe = () => {
                     Next.js, WebSocket, and WebRTC with features like multi-user
                     collaboration.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">2023</span>
                   <h4 className="text-xl font-semibold mb-2">
@@ -195,12 +231,23 @@ const WhyHireMe = () => {
                     Created a ReactJS app to dynamically display and track live
                     crypto currency prices and market performance.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">2023</span>
                   <h4 className="text-xl font-semibold mb-2">
@@ -212,6 +259,12 @@ const WhyHireMe = () => {
                     users can list and discuss problems, share new project
                     ideas.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -227,7 +280,7 @@ const WhyHireMe = () => {
             >
               <h3 className="text-2xl font-semibold mb-4 relative inline-block">
                 My education
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ff3333]/50"></span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent"></span>
               </h3>
               <p className="opacity-80 mb-6">
                 I'm currently pursuing my Bachelor's degree while continuing to
@@ -242,25 +295,41 @@ const WhyHireMe = () => {
                 viewport={{ once: true }}
               >
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">Current</span>
                   <h4 className="text-xl font-semibold mb-2">
-                    Bachelor of Technology in Information Technology
+                    B.Tech (IT) - Second Year
                   </h4>
-                  <p className="text-sm mb-2 opacity-70">• IIIT Gwalior</p>
+                  <p className="text-sm mb-2 opacity-70">• IIIT GWALIOR</p>
                   <p className="opacity-80">
-                    Second-year student with CGPA of 7.9/10, focusing on web
-                    technologies and software development.
+                    Pursuing a Bachelor's degree in Information Technology with
+                    focus on software development and algorithms.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">
                     Competitive Programming
@@ -271,12 +340,23 @@ const WhyHireMe = () => {
                     Scored in the 98 percentile, demonstrating strong analytical
                     and problem-solving abilities.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <span className="text-[#ff3333] block mb-1">
                     High School Education
@@ -289,6 +369,12 @@ const WhyHireMe = () => {
                     Class 12th: 82% | Class 10th: 85%, with strong foundation in
                     mathematics and science.
                   </p>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -303,16 +389,17 @@ const WhyHireMe = () => {
               transition={{ duration: 0.5 }}
             >
               <h3 className="text-2xl font-semibold mb-4 relative inline-block">
-                My skills
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ff3333]/50"></span>
+                Technical skills
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent"></span>
               </h3>
-              <p className="opacity-80 mb-6">
-                I've developed expertise in a range of technologies with a focus
-                on full-stack development and real-time applications.
+              <p className="opacity-80 mb-8">
+                I've developed proficiency in a range of technologies, with a
+                focus on JavaScript-based web development and real-time
+                applications.
               </p>
 
               <motion.div
-                className="grid grid-cols-2 md:grid-cols-4 gap-6"
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -320,16 +407,18 @@ const WhyHireMe = () => {
               >
                 {/* HTML/CSS */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
                       alt="HTML/CSS"
@@ -338,19 +427,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">HTML/CSS</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* JavaScript */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
                       alt="JavaScript"
@@ -359,19 +456,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">JavaScript</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* React.js */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
                       alt="React.js"
@@ -380,19 +485,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">React.js</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* Next.js */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
                       alt="Next.js"
@@ -402,19 +515,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">Next.js</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* WebSocket */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg"
                       alt="WebSocket"
@@ -423,19 +544,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">WebSocket</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* Firebase */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
                       alt="Firebase"
@@ -444,19 +573,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">Firebase</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* MongoDB */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
                       alt="MongoDB"
@@ -465,19 +602,27 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">MongoDB</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
 
                 {/* Tailwind */}
                 <motion.div
-                  className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-lg hover:shadow-lg hover:shadow-[#ff3333]/5 hover:border-[#ff3333]/20 transition-all duration-300 flex flex-col items-center justify-center"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group"
                   variants={itemVariants}
                   whileHover={{
                     y: -5,
                     scale: 1.02,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
                     transition: { duration: 0.2 },
                   }}
                 >
                   <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff3333]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <Image
                       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
                       alt="Tailwind CSS"
@@ -486,6 +631,11 @@ const WhyHireMe = () => {
                     />
                   </div>
                   <span className="text-center">Tailwind</span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -501,44 +651,288 @@ const WhyHireMe = () => {
             >
               <h3 className="text-2xl font-semibold mb-4 relative inline-block">
                 About me
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ff3333]/50"></span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#ff3333] to-transparent"></span>
               </h3>
 
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <motion.p className="opacity-80" variants={itemVariants}>
-                  I am a second-year B.Tech IT student at IIIT Gwalior with a
-                  strong foundation in web technologies, competitive
-                  programming, and real-time application development.
-                </motion.p>
-                <motion.p className="opacity-80" variants={itemVariants}>
-                  I'm passionate about creating collaborative tools and
-                  applications that solve real-world problems. My experience
-                  includes developing a real-time code editor, a cryptocurrency
-                  tracking platform, and a developer discussion forum.
-                </motion.p>
-                <motion.p className="opacity-80" variants={itemVariants}>
-                  I excel in competitive environments, having ranked 1st at IIIT
-                  Gwalior's Programming Contest and 2nd place in TechAthalon.
-                  I'm constantly learning and improving my skills to keep up
-                  with the latest technologies and best practices.
-                </motion.p>
+              <div className="grid md:grid-cols-2 gap-8">
+                <motion.div
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <h4 className="text-xl font-semibold mb-4 flex items-center">
+                    <svg
+                      className="w-5 h-5 mr-2 text-[#ff3333]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    Personal
+                  </h4>
+                  <p className="mb-4 opacity-80">
+                    I'm Brijesh Singh, a passionate developer from IIIT Gwalior,
+                    specializing in building innovative web applications. I have
+                    a strong foundation in problem-solving and algorithm design.
+                  </p>
 
-                <motion.div variants={itemVariants}>
-                  <Link
-                    href="/contact"
-                    className="inline-block px-6 py-3 rounded-full bg-[#ff3333] text-white hover:bg-[#cc0000] transition-colors duration-300 relative overflow-hidden group"
-                  >
-                    <span className="relative z-10">Get in touch</span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-[#ff3333] to-[#cc0000] group-hover:opacity-100 transition-opacity z-0"></span>
-                    <span className="absolute -inset-full bg-gradient-to-r from-[#ff3333] via-white/10 to-[#ff3333] z-0 animate-[shimmer_2s_infinite] opacity-0 group-hover:opacity-100"></span>
-                  </Link>
+                  <ul className="space-y-2 opacity-80">
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Constantly learning and improving my skills
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Strong problem-solving abilities
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Attention to detail and clean code practices
+                    </li>
+                  </ul>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
                 </motion.div>
+
+                <motion.div
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <h4 className="text-xl font-semibold mb-4 flex items-center">
+                    <svg
+                      className="w-5 h-5 mr-2 text-[#ff3333]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    My Approach
+                  </h4>
+                  <p className="mb-4 opacity-80">
+                    I approach development with a focus on creating intuitive,
+                    efficient, and scalable solutions. I believe in writing
+                    clean code that is maintainable and follows best practices.
+                  </p>
+
+                  <ul className="space-y-2 opacity-80">
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      User-centered design principles
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Agile development methodologies
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="w-5 h-5 mr-2 text-[#ff3333] mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Continuous learning and adaptation
+                    </li>
+                  </ul>
+                  {/* Light reflection effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </motion.div>
+              </div>
+
+              <motion.div
+                className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg transition-all duration-300 mt-6 relative overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{
+                  boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                  borderColor: "rgba(255, 51, 51, 0.3)",
+                  transition: { duration: 0.2 },
+                }}
+              >
+                {/* Light beam effect */}
+                <div className="absolute -right-20 top-1/2 w-40 h-40 bg-gradient-to-bl from-[#ff3333]/20 to-transparent rounded-full blur-3xl transform -translate-y-1/2" />
+
+                <h4 className="text-xl font-semibold mb-4 flex items-center">
+                  <svg
+                    className="w-5 h-5 mr-2 text-[#ff3333]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                  What I Bring to the Table
+                </h4>
+                <p className="mb-6 opacity-80">
+                  As a full-stack developer, I bring a combination of technical
+                  skills and soft skills that enable me to work effectively in
+                  teams and deliver high-quality solutions:
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <ul className="space-y-3 opacity-80">
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Strong problem-solving skills
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Ability to learn quickly and adapt
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Experience with modern development tools
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Strong communication and collaboration
+                    </li>
+                  </ul>
+
+                  <ul className="space-y-3 opacity-80">
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Passion for clean, maintainable code
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      User-centered design thinking
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Attention to detail and quality
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-[#ff3333] mr-2">•</span>
+                      Drive to continuously improve
+                    </li>
+                  </ul>
+                </div>
+                {/* Light reflection effect */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
               </motion.div>
             </motion.div>
           )}

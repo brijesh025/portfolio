@@ -13,4 +13,18 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
-export default eslintConfig;
+export default defineConfig({
+  extends: eslintConfig,
+  rules: {
+    // turn off unescaped entities errors in JSX
+    "react/no-unescaped-entities": "off",
+
+    // make unused vars warnings and ignore `_` prefixes
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+    ],
+
+    // ...existing rules...
+  },
+});

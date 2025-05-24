@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import React from "react";
 
 // Import skills data from skills page
 const skillIcons = [
@@ -13,6 +14,10 @@ const skillIcons = [
   {
     name: "Next.js",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  },
+  {
+    name: "React Native",
+    icon: "https://images-cdn.openxcell.com/wp-content/uploads/2024/07/25082439/reactnative-inner.svg",
   },
   {
     name: "TypeScript",
@@ -28,15 +33,11 @@ const skillIcons = [
   },
   {
     name: "Express",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    icon: "/icons/express.svg",
   },
   {
     name: "MongoDB",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  },
-  {
-    name: "Firebase",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
   },
   {
     name: "Git",
@@ -52,7 +53,7 @@ interface Skill {
   id: string;
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 }
 
 const skills: Skill[] = [
@@ -201,15 +202,6 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", stiffness: 300, damping: 24 },
-  },
-};
-
 const iconVariants = {
   hidden: { scale: 0, rotate: -10 },
   visible: {
@@ -249,109 +241,114 @@ const SkillShowcase = () => {
               className="h-1 bg-[#ff3333] mb-6"
             />
             <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="text-3xl md:text-4xl font-bold mb-4"
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              My Skills
+              My <span className="text-[#ff3333]">Skills</span>
             </motion.h2>
             <motion.p
+              className="opacity-80 max-w-xl"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 0.8 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="opacity-80 max-w-2xl"
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              With extensive experience in full-stack development, I've mastered
-              a range of technologies to build powerful, efficient web
-              applications tailored to your needs.
+              As a full-stack developer, I specialize in building responsive web
+              applications and real-time collaboration tools with modern
+              technologies.
             </motion.p>
           </div>
+
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Link href="/skills" className="btn-outline whitespace-nowrap">
-              All Skills
+            <Link
+              href="/skills"
+              className="px-6 py-3 rounded-full border border-[#ff3333] text-[#ff3333] hover:bg-[#ff3333] hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#ff3333]/20 whitespace-nowrap"
+            >
+              View All Skills
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Floating skill icons with animations */}
-        <div className="relative h-20 my-12 overflow-hidden">
-          <motion.div
-            className="flex gap-8 absolute w-full"
-            animate={{
-              x: ["-5%", "-25%"],
-            }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "reverse",
-              duration: 20,
-              ease: "linear",
-            }}
-          >
-            {[...skillIcons, ...skillIcons].map((skill, index) => (
-              <motion.div
-                key={`${skill.name}-${index}`}
-                className="flex-shrink-0 w-16 h-16 bg-white/5 backdrop-blur-sm rounded-xl p-3 flex items-center justify-center shadow-xl hover:shadow-[#ff3333]/10"
-                whileHover={{ y: -5, scale: 1.05 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={skill.icon}
-                    alt={skill.name}
-                    fill
-                    className="object-contain"
-                    style={{
-                      filter:
-                        skill.name === "GitHub"
-                          ? "invert(1) brightness(1.5)"
-                          : null,
-                    }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Main skills cards with staggering animation */}
+        {/* Skills Icons */}
         <motion.div
+          className="grid grid-cols-3 md:grid-cols-5 gap-8 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {skills.map((skill) => (
+          {skillIcons.slice(0, 10).map((skill, index) => (
             <motion.div
-              key={skill.id}
-              variants={itemVariants}
-              whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="p-6 bg-white/5 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/5 hover:border-[#ff3333]/30 hover:shadow-xl hover:shadow-[#ff3333]/5 transition-all duration-300 group"
+              key={skill.name}
+              className="flex flex-col items-center group"
+              variants={iconVariants}
+              whileHover="hover"
             >
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-white/5 backdrop-blur-md rounded-full p-4 flex items-center justify-center mb-3 border border-white/10 group-hover:border-[#ff3333]/30 group-hover:shadow-lg group-hover:shadow-[#ff3333]/10 transition-all duration-300">
+                <Image
+                  src={skill.icon}
+                  alt={skill.name}
+                  width={48}
+                  height={48}
+                  className="object-contain w-full h-full filter transition-all duration-300"
+                />
+              </div>
+              <span className="text-sm text-center">{skill.name}</span>
+              {/* Light reflection effect */}
               <motion.div
-                className="mb-6 p-4 rounded-full bg-[#ff3333]/10 inline-block"
-                variants={iconVariants}
-                whileHover="hover"
-              >
-                {skill.icon}
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-[#ff3333] transition-colors">
-                {skill.title}
-              </h3>
-              <p className="opacity-80">{skill.description}</p>
+                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ff3333]/20 to-transparent"
+                initial={{ opacity: 0, x: "-100%" }}
+                whileHover={{ opacity: 1, x: "100%" }}
+                transition={{ duration: 1.5 }}
+              />
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Featured Skills */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.slice(0, 3).map((skill) => (
+            <motion.div
+              key={skill.id}
+              className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg relative overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              whileHover={{
+                y: -5,
+                boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                borderColor: "rgba(255, 51, 51, 0.3)",
+                transition: { duration: 0.2 },
+              }}
+            >
+              {/* Light orb effect */}
+              <div className="absolute -right-8 -top-8 w-24 h-24 bg-gradient-to-bl from-[#ff3333]/10 to-transparent rounded-full blur-2xl" />
+
+              <div className="relative">{skill.icon}</div>
+              <h3 className="text-xl font-semibold my-4 relative">
+                {skill.title}
+                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-[#ff3333] to-transparent"></span>
+              </h3>
+              <p className="opacity-80">{skill.description}</p>
+
+              {/* Light reflection effect */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isSelected, setIsSelected] = useState("Home");
   const navLinks = [
     {
       label: "Home",
@@ -39,40 +40,33 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center space-x-8">
-        <Link
-          href="/"
-          className="hover:text-primary transition-colors duration-300"
-        >
-          Home
-        </Link>
-        <Link
-          href="/skills"
-          className="hover:text-primary transition-colors duration-300"
-        >
-          Skills
-        </Link>
-        <Link
-          href="/resume"
-          className="hover:text-primary transition-colors duration-300"
-        >
-          Resume
-        </Link>
-        <Link
-          href="/work"
-          className="hover:text-primary transition-colors duration-300"
-        >
-          Work
-        </Link>
-        <Link
-          href="/contact"
-          className="hover:text-primary transition-colors duration-300"
-        >
-          Contact
-        </Link>
+      <div className="hidden md:flex items-center gap-8">
+        {navLinks.map((link) => (
+          <Link
+            key={link.label}
+            href={link.path}
+            className="relative py-2 hover:!text-primary transition-all duration-300"
+            onClick={() => setIsSelected(link.label)}
+          >
+            {link.label}
+            {isSelected === link.label && (
+              <motion.div
+                className="absolute left-0 right-0 h-0.5 bg-primary shadow-[0_0_10px_var(--color-primary)]"
+                layoutId="navbar-underline"
+                initial={false}
+                transition={{
+                  type: "spring",
+                  stiffness: 800,
+                  damping: 20,
+                }}
+              />
+            )}
+          </Link>
+        ))}
         <Link
           href="/contact"
           className="px-6 py-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
+          onClick={() => setIsSelected("Hire me")}
         >
           Hire me
         </Link>
@@ -113,39 +107,26 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       {isOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 p-5 bg-background border-b border-gray-200 dark:border-gray-800 flex flex-col space-y-4">
-          <Link
-            href="/"
-            className="hover:text-primary transition-colors duration-300"
-          >
-            Home
-          </Link>
-          <Link
-            href="/skills"
-            className="hover:text-primary transition-colors duration-300"
-          >
-            Skills
-          </Link>
-          <Link
-            href="/resume"
-            className="hover:text-primary transition-colors duration-300"
-          >
-            Resume
-          </Link>
-          <Link
-            href="/work"
-            className="hover:text-primary transition-colors duration-300"
-          >
-            Work
-          </Link>
-          <Link
-            href="/contact"
-            className="hover:text-primary transition-colors duration-300"
-          >
-            Contact
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.path}
+              className="hover:text-primary transition-colors duration-300"
+              onClick={() => {
+                setIsSelected(link.label);
+                setIsOpen(false);
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
           <Link
             href="/contact"
             className="px-6 py-2 text-center rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
+            onClick={() => {
+              setIsSelected("Hire me");
+              setIsOpen(false);
+            }}
           >
             Hire me
           </Link>

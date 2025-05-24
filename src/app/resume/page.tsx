@@ -1,4 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 300, damping: 24 },
+  },
+};
 
 export default function ResumePage() {
   const experiences = [
@@ -101,18 +124,61 @@ export default function ResumePage() {
   ];
 
   return (
-    <div className="w-full px-6 md:px-12 lg:px-20 py-16 md:py-24">
+    <div className="w-full px-6 md:px-12 lg:px-20 py-16 md:py-24 relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-40 right-20 w-80 h-80 bg-gradient-to-br from-[#ff3333]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-gradient-to-tr from-[#ff3333]/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#ff3333]/20 to-transparent" />
+      </div>
+
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">My Resume</h1>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="h-1 bg-[#ff3333] mb-6 mx-auto"
+          />
+
+          <motion.h1
+            className="text-4xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            My <span className="text-[#ff3333]">Resume</span>
+          </motion.h1>
+
+          <motion.p
+            className="text-lg opacity-80 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             My professional journey and qualifications. Download my full resume
             or browse through my experience below.
-          </p>
-          <div className="mt-8">
+          </motion.p>
+
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <Link
               href="/assets/resume.pdf"
-              className="px-8 py-3 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300 inline-flex items-center gap-2"
+              className="px-8 py-3 rounded-full bg-[#ff3333] text-white hover:shadow-lg hover:shadow-[#ff3333]/20 transition-all duration-300 hover:-translate-y-1 inline-flex items-center gap-2"
               download
             >
               <svg
@@ -131,96 +197,219 @@ export default function ResumePage() {
               </svg>
               Download Full Resume
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="space-y-16">
           {/* Work Experience Section */}
-          <section>
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <motion.h2
+              className="text-2xl md:text-3xl font-bold mb-8 relative inline-block"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Work Experience
-            </h2>
-            <div className="space-y-10">
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff3333] to-transparent"></span>
+            </motion.h2>
+
+            <motion.div
+              className="space-y-10"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {experiences.map((exp) => (
-                <div key={exp.id} className="grid md:grid-cols-[1fr_3fr] gap-6">
+                <motion.div
+                  key={exp.id}
+                  className="grid md:grid-cols-[1fr_3fr] gap-6 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg hover:border-[#ff3333]/30 transition-all duration-300"
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
+                >
                   <div>
-                    <span className="text-primary block mb-1">
+                    <span className="text-[#ff3333] block mb-1">
                       {exp.period}
                     </span>
                     <h3 className="text-xl font-semibold">{exp.title}</h3>
                     <p className="text-sm opacity-70">{exp.company}</p>
                   </div>
-                  <div>
+                  <div className="relative">
+                    {/* Light orb effect */}
+                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-gradient-to-bl from-[#ff3333]/10 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                     <p className="mb-4 opacity-80">{exp.description}</p>
                     <ul className="list-disc list-inside space-y-2 opacity-80">
                       {exp.responsibilities.map((responsibility, index) => (
                         <li key={index}>{responsibility}</li>
                       ))}
                     </ul>
+
+                    {/* Light reflection effect */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
 
           {/* Education Section */}
-          <section>
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.h2
+              className="text-2xl md:text-3xl font-bold mb-8 relative inline-block"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Education
-            </h2>
-            <div className="space-y-10">
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff3333] to-transparent"></span>
+            </motion.h2>
+
+            <motion.div
+              className="space-y-10"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {education.map((edu) => (
-                <div key={edu.id} className="grid md:grid-cols-[1fr_3fr] gap-6">
+                <motion.div
+                  key={edu.id}
+                  className="grid md:grid-cols-[1fr_3fr] gap-6 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg hover:border-[#ff3333]/30 transition-all duration-300"
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                    borderColor: "rgba(255, 51, 51, 0.3)",
+                    transition: { duration: 0.2 },
+                  }}
+                >
                   <div>
-                    <span className="text-primary block mb-1">
+                    <span className="text-[#ff3333] block mb-1">
                       {edu.period}
                     </span>
                     <h3 className="text-xl font-semibold">{edu.degree}</h3>
                     <p className="text-sm opacity-70">{edu.institution}</p>
                   </div>
-                  <div>
+                  <div className="relative">
                     <p className="opacity-80">{edu.description}</p>
+
+                    {/* Light reflection effect */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      whileHover={{ opacity: [0, 1, 0], x: ["-100%", "100%"] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
 
           {/* Skills Section */}
-          <section>
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.h2
+              className="text-2xl md:text-3xl font-bold mb-8 relative inline-block"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Technical Skills
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {skills.map((skill) => (
-                <div key={skill.id}>
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff3333] to-transparent"></span>
+            </motion.h2>
+
+            <motion.div
+              className="grid md:grid-cols-2 gap-6 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-lg"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              whileHover={{
+                boxShadow: "0 10px 30px rgba(255, 51, 51, 0.15)",
+                borderColor: "rgba(255, 51, 51, 0.3)",
+                transition: { duration: 0.2 },
+              }}
+            >
+              {skills.map((skill, index) => (
+                <motion.div key={skill.id} variants={itemVariants}>
                   <div className="flex justify-between mb-1">
                     <span className="font-medium">{skill.name}</span>
                     <span className="text-sm opacity-70">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                    <div
-                      className="bg-primary h-2.5 rounded-full"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
+                  <div className="w-full bg-white/10 rounded-full h-2.5 mb-4">
+                    <motion.div
+                      className="bg-[#ff3333] h-2.5 rounded-full"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.2 + index * 0.1 }}
+                    ></motion.div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
 
-          <div className="mt-16 text-center">
-            <p className="text-lg mb-8">
+          <motion.div
+            className="mt-16 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <motion.p
+              className="text-lg mb-8 opacity-80"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 0.8 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               Interested in working together? Let's discuss how I can help your
               team.
-            </p>
-            <Link
-              href="/contact"
-              className="px-8 py-3 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              whileHover={{ y: -5 }}
             >
-              Contact Me
-            </Link>
-          </div>
+              <Link
+                href="/contact"
+                className="inline-block px-8 py-3 rounded-full bg-[#ff3333] text-white hover:shadow-lg hover:shadow-[#ff3333]/20 transition-all duration-300"
+              >
+                Contact Me
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
