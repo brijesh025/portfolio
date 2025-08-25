@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Brijesh Singh | Full Stack Developer",
   description:
     "Professional portfolio of Brijesh Singh, a full-stack developer with expertise in web technologies and real-time applications",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -27,13 +30,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </body>
     </html>
   );
 }

@@ -57,50 +57,75 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  {
-    id: "frontend",
-    title: "Frontend Development",
-    description:
-      "Building responsive, interactive user interfaces using React, Next.js, and TypeScript. Creating beautiful UI components with Tailwind CSS and other modern frameworks for exceptional user experiences.",
-    icon: (
-      <svg
-        className="w-12 h-12 text-primary"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "backend",
-    title: "Backend Development",
-    description:
-      "Developing robust server-side applications with Node.js, Express, and MongoDB. Building secure, scalable API endpoints and implementing efficient database architectures for optimal performance.",
-    icon: (
-      <svg
-        className="w-12 h-12 text-primary"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
-        />
-      </svg>
-    ),
-  },
+{
+  id: "fullstack",
+  title: "Full Stack Developer",
+  description:
+    "Building responsive, interactive user interfaces with React, Next.js, and TypeScript, and crafting beautiful, modern UI components using Tailwind CSS. Developing robust server-side applications with Node.js, Express, and MongoDB, creating secure, scalable APIs and efficient database architectures for high-performance solutions.",
+  icon: (
+    <svg
+      className="w-12 h-12 text-primary"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Layered stack inside browser window */}
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" strokeWidth={1.5} />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M4 8h16M8 12h8M10 16h4"
+      />
+    </svg>
+  ),
+},
+{
+  id: "devops",
+  title: "DevOps Engineering",
+  description:
+    "Implementing modern DevOps practices to streamline development and deployment workflows. Experienced with CI/CD pipelines, Docker, containerized applications, and cloud deployments to ensure scalable, reliable, and production-ready environments.",
+  icon: (
+    <svg
+      className="w-12 h-12 text-primary"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* infinity loop */}
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M6.5 7.5
+           C4.2 7.5 3 9.8 3 12c0 2.2 1.2 4.5 3.5 4.5
+           C8.8 16.5 10 14.2 12 12
+           C14 14.2 15.2 16.5 17.5 16.5
+           C19.8 16.5 21 14.2 21 12
+           C21 9.8 19.8 7.5 17.5 7.5
+           C15.2 7.5 14 9.8 12 12
+           C10 9.8 8.8 7.5 6.5 7.5z"
+      />
+      {/* left arrow tip */}
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M3.6 9.6 L5.1 8.1 M3.6 9.6 L5.1 11.1"
+      />
+      {/* right arrow tip */}
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M20.4 14.4 L18.9 15.9 M20.4 14.4 L18.9 12.9"
+      />
+    </svg>
+  ),
+},
+
   {
     id: "real-time",
     title: "Real-Time Applications",

@@ -1,0 +1,120 @@
+{
+  "header": {
+    "full_name": "Brijesh Singh",
+    "title": "Full Stack Developer",
+    "email": "coderrrx@gmail.com",
+    "phone": "+91 7984920911",
+    "links": [
+      "https://brijeshstack.vercel.app",
+      "https://github.com/coderrrx-Brijesh",
+      "https://linkedin.com/in/brijesh-singh-785a02213/"
+    ]
+  },
+  "summary": "I am a third-year B.Tech IT student at IIIT Gwalior with a solid foundation in Full Stack Development and DevOps. My interests span web and mobile technologies, competitive programming, and real-time application development. I enjoy building scalable systems, automating workflows, and contributing to open-source projects that solve real-world problems.",
+  "experience": [
+    {
+      "role": "Full Stack Developer & Team Manager",
+      "company": "Rishishwar Industries",
+      "period": "May 2025 - Present",
+      "bullets": [
+        "Built interactive 3D components with Three.js and implemented a face authentication system.",
+        "Promoted to Team Lead for the Learn2Pay project; implemented role-based authentication and authorization (RBAC).",
+        "Designed a hybrid monolithic–microservices architecture and led the development team to delivery."
+      ]
+    },
+    {
+      "role": "Computer Science Instructor",
+      "company": "Expograde Academy",
+      "period": "May 2024 - July 2024",
+      "bullets": [
+        "Taught fundamentals of computer science and programming.",
+        "Guided students through C++, Java, Python, and JavaScript basics.",
+        "Encouraged coding mindset and problem-solving techniques."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Information Technology",
+      "institution": "IIIT Gwalior",
+      "period": "Aug 2023 – Aug 2027 (Present)",
+      "description": "CGPA: 8.03; JEE Mains: 98 Percentile"
+    },
+    {
+      "degree": "Class XII (CBSE)",
+      "institution": "Army Public School, Dhrangadhra",
+      "period": "",
+      "description": "Percentage: 82%"
+    },
+    {
+      "degree": "Class X (CBSE)",
+      "institution": "Army Public School, Lucknow",
+      "period": "",
+      "description": "Percentage: 85%"
+    }
+  ],
+  "skills": [
+    { "name": "Next.js", "level": 90 },
+    { "name": "React", "level": 90 },
+    { "name": "Node.js", "level": 85 },
+    { "name": "WebSocket", "level": 85 },
+    { "name": "WebRTC", "level": 80 },
+    { "name": "MongoDB", "level": 80 },
+    { "name": "SQL", "level": 75 },
+    { "name": "Docker", "level": 75 },
+    { "name": "Kubernetes", "level": 65 },
+    { "name": "Jenkins", "level": 60 },
+    { "name": "C++", "level": 80 },
+    { "name": "Java", "level": 70 },
+    { "name": "JavaScript", "level": 90 },
+    { "name": "Python", "level": 70 },
+    { "name": "HTML", "level": 90 },
+    { "name": "CSS", "level": 85 },
+    { "name": "Tailwind CSS", "level": 85 },
+    { "name": "Git", "level": 85 },
+    { "name": "GitHub", "level": 85 },
+    { "name": "GitLab", "level": 70 }
+  ],
+  "projects": [
+    {
+      "name": "CodeSync",
+      "tech": [
+        "Next.js",
+        "WebSocket",
+        "WebRTC",
+        "NextAuth.js",
+        "Express",
+        "MongoDB",
+        "Azure AI API"
+      ],
+      "description": "Real-time code collaboration with live group video call, group chat, chatbot assistant, and file system like VS Code; includes cursor tracking and auto-completion.",
+      "link": "https://codesynccollab.vercel.app"
+    },
+    {
+      "name": "CRPTED",
+      "tech": ["React", "Recharts", "MongoDB", "REST API", "Express"],
+      "description": "Live crypto price tracker with market insights and charts.",
+      "link": "https://crpted.vercel.app"
+    },
+    {
+      "name": "Tune Together",
+      "tech": ["React Native", "WebSocket", "WebView"],
+      "description": "Collaborative cross-platform app for synchronized browsing, watching, listening, and interacting in real-time rooms.",
+      "link": "https://github.com/coderrrx-Brijesh/tune_togther"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "1st Place – IIIT Gwalior Programming Contest",
+      "details": "300+ participants"
+    },
+    {
+      "title": "1st Place – IIIT Gwalior Winter Projects Hackathon",
+      "details": ""
+    },
+    {
+      "title": "2nd Place – Techathalon Coding Contest at Infotsav",
+      "details": "IIIT Gwalior’s technical fest"
+    }
+  ]
+}

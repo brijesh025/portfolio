@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
+import { usePathname } from "next/navigation";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathName = usePathname()
   const [isSelected, setIsSelected] = useState("Home");
   const navLinks = [
     {
@@ -21,17 +22,33 @@ const Navbar = () => {
       path: "/resume",
     },
     {
-      label: "Work",
+      label: "Project",
       path: "/work",
     },
-    {
-      label: "Contact",
-      path: "/contact",
-    },
   ];
-
+  useEffect(() => {
+    // Default to "Home" for the root path
+    if (pathName === "/") {
+      setIsSelected("Home");
+      return;
+    }
+    
+    // Find matching nav item for current path
+    const matchingLink = navLinks.find(link => 
+      pathName.startsWith(link.path) && link.path !== "/"
+    );
+    
+    if (matchingLink) {
+      setIsSelected(matchingLink.label);
+    } else if (pathName === "/contact") {
+      setIsSelected("Hire me");
+    }
+  }, [pathName]);
   return (
-    <nav className="flex justify-between items-center w-full py-4 px-6 md:px-12 lg:px-20 sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+<nav className="flex justify-between items-center w-full py-4 px-6 md:px-12 sticky top-0 z-50 bg-background/80 backdrop-blur-md relative">
+  <span className="absolute bottom-0 left-0 h-[2px] w-[50%] bg-gradient-to-r from-red-500 to-transparent"></span>
+  <span className="absolute bottom-0 right-0 h-[2px] w-[50%] bg-gradient-to-r from-transparent to-red-500"></span>
+      <div className="flex flex-row justify-between w-full">
       <div className="flex items-center">
         <Link href="/" className="text-2xl font-bold">
           <span>Brijesh</span>
@@ -68,7 +85,7 @@ const Navbar = () => {
           className="px-6 py-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
           onClick={() => setIsSelected("Hire me")}
         >
-          Hire me
+          Contact Me
         </Link>
       </div>
 
@@ -103,15 +120,16 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
+      </div>
 
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 p-5 bg-background border-b border-gray-200 dark:border-gray-800 flex flex-col space-y-4">
+        <div className="md:hidden left-0 right-0 p-5 items-center flex flex-col space-y-4  backdrop-blur-md">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.path}
-              className="hover:text-primary transition-colors duration-300"
+              className="hover:text-primary z-500 transition-colors duration-300"
               onClick={() => {
                 setIsSelected(link.label);
                 setIsOpen(false);
@@ -122,7 +140,7 @@ const Navbar = () => {
           ))}
           <Link
             href="/contact"
-            className="px-6 py-2 text-center rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
+            className="px-15 py-2 text-center rounded-full bg-primary text-white hover:bg-primary-dark transition-colors duration-300"
             onClick={() => {
               setIsSelected("Hire me");
               setIsOpen(false);

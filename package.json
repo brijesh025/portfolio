@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "resume:extract": "node ./scripts/extract-resume.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.5",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "pdf-parse": "^1.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -3,6 +3,7 @@ import FeaturedWorks from "@/components/FeaturedWorks";
 import SkillShowcase from "@/components/SkillShowcase";
 import WhyHireMe from "@/components/WhyHireMe";
 import CTASection from "@/components/CTASection";
+import Experience from "@/components/Experience";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function Home() {
     <main>
       <Hero />
       <SkillShowcase />
+      <Experience />
       <FeaturedWorks />
       <WhyHireMe />
       <CTASection />
